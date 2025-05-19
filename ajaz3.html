@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exemplo com Fetch</title>
+    <style>
+        #resultado {
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Exemplo de Requisição com Fetch</h1>
+    <button id="btnCarregarDados">Carregar Dados</button>
+    <div id="resultado"></div>
+
+    <script>
+        // Função para carregar dados do servidor
+        document.getElementById('btnCarregarDados').addEventListener('click', function() {
+            fetch('/dados')
+                .then(response => {
+                    // Verificando se a resposta foi bem-sucedida
+                    if (!response.ok) {
+                        throw new Error('Erro na resposta da requisição');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // Exibindo a resposta no HTML
+                    document.getElementById('resultado').innerHTML = `<p>${data.mensagem}</p>`;
+                })
+                .catch(error => {
+                    // Caso haja erro
+                    document.getElementById('resultado').innerHTML = `<p>Erro: ${error.message}</p>`;
+                });
+        });
+    </script>
+</body>
+</html>
